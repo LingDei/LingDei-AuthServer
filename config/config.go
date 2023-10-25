@@ -15,5 +15,5 @@ var (
 	// QiNiu
 	QINIU_ACCESS_KEY = "R1weO56kS2kZK6BWEelAGaEXirAXKPAOjZ_OoYqk"
 	QINIU_SECRET_KEY = "6igpxhFmCVjjWALG8xfxi_MfSHQKkXcHlBS31wgA"
-	QINIU_BUCKET     = "your bucket"
+	QINIU_BUCKET     = "lingdei"
 )
