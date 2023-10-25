@@ -1,0 +1,462 @@
+basePath: /
+definitions:
+  model.AvatorResp:
+    properties:
+      code:
+        type: integer
+      url:
+        type: string
+    type: object
+  model.OperationResp:
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+    type: object
+  model.Profile:
+    properties:
+      avatarurl:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      nickname:
+        maxLength: 25
+        minLength: 2
+        type: string
+    required:
+    - id
+    - nickname
+    type: object
+  model.ProfileResp:
+    properties:
+      code:
+        type: integer
+      profile:
+        $ref: '#/definitions/model.Profile'
+    type: object
+  model.TokenResp:
+    properties:
+      code:
+        type: integer
+      role:
+        type: integer
+      token:
+        type: string
+    type: object
+  model.UIDResp:
+    properties:
+      code:
+        type: integer
+      id:
+        type: string
+    type: object
+  model.User:
+    properties:
+      id:
+        type: string
+      password:
+        maxLength: 20
+        minLength: 6
+        type: string
+      role:
+        type: integer
+      username:
+        maxLength: 20
+        minLength: 3
+        type: string
+    required:
+    - id
+    - password
+    - username
+    type: object
+  model.UsersResp:
+    properties:
+      code:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/model.User'
+        type: array
+    type: object
+host: 127.0.0.1:9000
+info:
+  contact: {}
+  description: 灵嘚用户认证服务接口
+  title: 灵嘚用户认证服务API
+  version: v1.0.0
+paths:
+  /profile/avatar:
+    post:
+      consumes:
+      - application/json
+      description: 上传头像
+      parameters:
+      - description: 头像文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.AvatorResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 上传头像
+      tags:
+      - 用户个人资料
+  /profile/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户Profile，本接口对管理员权限的要求为等级7。一般不需要用到本接口。
+      parameters:
+      - description: 被删除Profile的用户id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: "删除用户Profile\U0001F9B8‍♂️"
+      tags:
+      - 用户个人资料
+  /profile/get:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户Profile，用户id通过token取得，不需要单独传参
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProfileResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户Profile
+      tags:
+      - 用户个人资料
+  /profile/update:
+    post:
+      consumes:
+      - application/json
+      description: 更新用户个人资料，用户id通过token取得，不需要单独传参。若Profile不存在则会自动创建新Profile。若参数为空则代表不对该项进行修改。
+      parameters:
+      - description: 用户昵称
+        in: query
+        name: nickname
+        type: string
+      - description: 头像地址
+        in: query
+        name: avatarurl
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户个人资料
+      tags:
+      - 用户个人资料
+  /token/get:
+    post:
+      consumes:
+      - application/json
+      description: 通过用户名和密码获取token
+      parameters:
+      - description: UserName
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: Password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TokenResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      summary: 获取 Token
+      tags:
+      - token
+  /user/changepwd:
+    post:
+      consumes:
+      - application/json
+      description: 修改用户密码，username通过token取得，只需传入新密码、旧密码两个参数即可
+      parameters:
+      - description: 旧密码
+        in: query
+        name: old_password
+        required: true
+        type: string
+      - description: 新密码
+        in: query
+        name: new_password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改用户密码
+      tags:
+      - 用户
+  /user/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户，本接口对管理员权限的要求为等级7。仅能删除权限比自己低的管理员，普通用户可以被随意删除。
+      parameters:
+      - description: 用户id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: "删除用户\U0001F9B8‍♂️"
+      tags:
+      - 用户
+  /user/exist:
+    get:
+      consumes:
+      - application/json
+      description: 通过用户名检查用户名是否已经存在
+      parameters:
+      - description: UserName
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 检查用户名是否已经存在
+      tags:
+      - 用户
+  /user/getid:
+    get:
+      consumes:
+      - application/json
+      description: 通过用户名获取用户id
+      parameters:
+      - description: UserName
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UIDResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户id
+      tags:
+      - 用户
+  /user/getusers:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户列表，可选参数username的作用是搜索所有包括该参数的用户名，本接口对管理员权限的要求为等级6
+      parameters:
+      - description: UserName
+        in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UsersResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: "获取用户列表\U0001F9B8‍♂️"
+      tags:
+      - 用户
+  /user/logout:
+    delete:
+      consumes:
+      - application/json
+      description: 用户登陆注销，本接口暂未实现实际功能，请在前端清除token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Token注销
+      tags:
+      - 用户
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 新用户注册
+      parameters:
+      - description: UserName
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: Password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      summary: 用户注册
+      tags:
+      - 用户
+  /user/update:
+    post:
+      consumes:
+      - application/json
+      description: 修改任意用户,管理员权限要求为9
+      parameters:
+      - description: 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 新密码
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: 权限等级1~9
+        in: query
+        name: role
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.OperationResp'
+      security:
+      - ApiKeyAuth: []
+      summary: "修改任意用户\U0001F9B8‍♂️"
+      tags:
+      - 用户
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
