@@ -19,12 +19,6 @@ var jwtConfig = jwtware.New(jwtware.Config{
 })
 
 func regiserService(app *fiber.App) {
-	// Swagger
-	app.Get("/swagger/*", swagger.HandlerDefault)
-
-	// 以下为权限控制接口
-	app.Use(jwtConfig)
-
 	//Swagger
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
