@@ -46,7 +46,8 @@ func UploadAvator(file *multipart.FileHeader) (string, error) {
 
 	randomName := strings.Replace(uuid.NewString(), "-", "", -1) + "." + fileExtension
 	if err := formUploader.Put(context.Background(), &ret, upToken, "avatars/"+randomName, fileBytes, file.Size, &putExtra); err != nil {
-		fmt.Println(ret.Key, ret.Hash)
+		fmt.Println(err)
+		return "", err
 	}
 
 	fmt.Println(ret)
