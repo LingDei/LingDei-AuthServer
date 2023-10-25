@@ -34,7 +34,7 @@ func AddUser(user model.User) error {
 	}
 
 	//创建Profile
-	var EmptyProfile = model.Profile{ID: user.ID, NickName: "用户名称", AvatarURL: "https://qingting-bucket.oss-cn-shanghai.aliyuncs.com/avatars/default.png"}
+	var EmptyProfile = model.Profile{ID: user.ID, NickName: "用户名称", AvatarURL: "https://bucket.lingdei.doyi.online/avatars/default.png"}
 	if err := AddProfile(EmptyProfile); err != nil {
 		return err
 	}
