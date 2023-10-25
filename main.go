@@ -24,7 +24,7 @@ func main() {
 	app.Use(cors.New(cors.Config{}))
 
 	// 注册路由
-	// regiserService(app)
+	regiserService(app)
 
 	// 启动服务
 	app.Listen(":9000")
