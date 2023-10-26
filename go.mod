@@ -1,6 +1,6 @@
 module LingDei_AuthServer
 
-go 1.21.3
+go 1.18
 
 require (
 	github.com/go-playground/validator/v10 v10.15.5
