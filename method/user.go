@@ -1,8 +1,8 @@
 package method
 
 import (
-	"LingDei_AuthServer/model"
-	"LingDei_AuthServer/utils"
+	"LingDei-AuthServer/model"
+	"LingDei-AuthServer/utils"
 	"errors"
 	"fmt"
 

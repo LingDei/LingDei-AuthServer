@@ -1,7 +1,7 @@
 package config
 
 import (
-	"LingDei_AuthServer/model"
+	"LingDei-AuthServer/model"
 
 	"github.com/gofiber/fiber/v2"
 )

@@ -1,15 +1,15 @@
 package main
 
 import (
-	"LingDei_AuthServer/config"
+	"LingDei-AuthServer/config"
 
-	_ "LingDei_AuthServer/docs"
+	_ "LingDei-AuthServer/docs"
 
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/gofiber/swagger"
 
-	handler "LingDei_AuthServer/handler"
+	handler "LingDei-AuthServer/handler"
 )
 
 var jwtConfig = jwtware.New(jwtware.Config{

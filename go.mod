@@ -1,4 +1,4 @@
-module LingDei_AuthServer
+module LingDei-AuthServer
 
 go 1.18
 

@@ -6,7 +6,7 @@ import (
 	"encoding/pem"
 	"os"
 
-	"LingDei_AuthServer/config"
+	"LingDei-AuthServer/config"
 )
 
 func LoadPrivateKey() (*rsa.PrivateKey, error) {

@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"LingDei_AuthServer/method"
-	"LingDei_AuthServer/model"
-	"LingDei_AuthServer/utils"
+	"LingDei-AuthServer/method"
+	"LingDei-AuthServer/model"
+	"LingDei-AuthServer/utils"
 	"crypto/rsa"
 	"log"
 	"time"

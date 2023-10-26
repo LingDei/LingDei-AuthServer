@@ -1,8 +1,8 @@
 package method
 
 import (
-	"LingDei_AuthServer/config"
-	"LingDei_AuthServer/model"
+	"LingDei-AuthServer/config"
+	"LingDei-AuthServer/model"
 	"fmt"
 
 	"gorm.io/driver/mysql"

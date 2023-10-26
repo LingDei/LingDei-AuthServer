@@ -1,7 +1,7 @@
 package method
 
 import (
-	"LingDei_AuthServer/model"
+	"LingDei-AuthServer/model"
 	"errors"
 )
 

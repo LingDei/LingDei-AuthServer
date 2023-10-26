@@ -1,7 +1,7 @@
 package method
 
 import (
-	"LingDei_AuthServer/config"
+	"LingDei-AuthServer/config"
 	"context"
 	"fmt"
 	"mime/multipart"

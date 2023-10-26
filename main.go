@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
-	_ "LingDei_AuthServer/docs"
+	_ "LingDei-AuthServer/docs"
 )
 
 //	@title						灵嘚用户认证服务API

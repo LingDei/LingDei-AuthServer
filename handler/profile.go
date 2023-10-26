@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"LingDei_AuthServer/config"
-	"LingDei_AuthServer/method"
-	"LingDei_AuthServer/model"
+	"LingDei-AuthServer/config"
+	"LingDei-AuthServer/method"
+	"LingDei-AuthServer/model"
 
 	"github.com/gofiber/fiber/v2"
 )
