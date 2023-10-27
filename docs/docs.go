@@ -731,7 +731,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "灵嘚用户认证服务API",
-	Description:      "灵嘚用户认证服务接口",
+	Description:      "灵嘚用户认证服务接口是一个基于 Fiber 的 RESTful API 服务，用于提供灵嘚（LingDei）的用户认证服务。\n注意，有 🦸 标识的接口需要管理员权限才能访问。",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
