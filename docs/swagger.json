@@ -672,17 +672,19 @@
             "type": "object",
             "required": [
                 "id",
-                "password",
                 "username"
             ],
             "properties": {
                 "id": {
                     "type": "string"
                 },
-                "password": {
-                    "type": "string",
-                    "maxLength": 20,
-                    "minLength": 6
+                "profile": {
+                    "description": "Profile",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.Profile"
+                        }
+                    ]
                 },
                 "role": {
                     "type": "integer"

@@ -57,10 +57,10 @@ definitions:
     properties:
       id:
         type: string
-      password:
-        maxLength: 20
-        minLength: 6
-        type: string
+      profile:
+        allOf:
+        - $ref: '#/definitions/model.Profile'
+        description: Profile
       role:
         type: integer
       username:
@@ -69,7 +69,6 @@ definitions:
         type: string
     required:
     - id
-    - password
     - username
     type: object
   model.UsersResp:
