@@ -40,6 +40,11 @@ func GetToken(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
+	// 验证用户名和密码是否为空
+	if username == "" || password == "" {
+		return c.JSON(model.OperationResp{Code: 400, Msg: "用户名或密码不能为空"})
+	}
+
 	// 查找用户并验证密码，如不正确则返回未授权错误
 	if err := method.CheckPwdValid(username, password); err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
