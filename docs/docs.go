@@ -622,7 +622,7 @@ const docTemplate = `{
                 "nickname"
             ],
             "properties": {
-                "avatarurl": {
+                "avatar_url": {
                     "type": "string"
                 },
                 "email": {

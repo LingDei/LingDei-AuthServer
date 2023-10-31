@@ -101,6 +101,9 @@ func DeleteProfileHandler(c *fiber.Ctx) error {
 //	@Security		ApiKeyAuth
 //	@Router			/profile/avatar [post]
 func UploadAvatorHandler(c *fiber.Ctx) error {
+	profile := model.Profile{}
+	profile.ID = method.GetUserFromToken(c).ID
+
 	file, err := c.FormFile("file")
 	if err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
@@ -109,6 +112,13 @@ func UploadAvatorHandler(c *fiber.Ctx) error {
 	//上传文件
 	fileUrl, err := method.UploadAvator(file)
 	if err != nil {
+		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
+	}
+
+	profile.AvatarURL = "https://bucket.lingdei.doyi.online/" + fileUrl
+
+	// 修改Profile
+	if err := method.UpdateProfile(profile); err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
 	}
 
