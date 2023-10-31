@@ -118,7 +118,7 @@ func UploadAvatorHandler(c *fiber.Ctx) error {
 	profile.AvatarURL = "https://bucket.lingdei.doyi.online/" + fileUrl
 
 	// 修改Profile
-	if err := method.UpdateProfile(profile); err != nil {
+	if err := method.UpdateProfileWithoutCheck(profile); err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
 	}
 

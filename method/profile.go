@@ -51,6 +51,28 @@ func UpdateProfile(profile model.Profile) error {
 	return nil
 }
 
+// UpdateProfileWithoutCheck 修改Profile
+func UpdateProfileWithoutCheck(profile model.Profile) error {
+	db, err := getDB()
+	sqlDB, _ := db.DB() //结束后关闭 DB
+	defer sqlDB.Close()
+	if err != nil {
+		return err
+	}
+
+	//Profile不存在则新创建
+	if CheckProfileExist(profile.ID) != nil {
+		AddProfile(profile)
+	}
+
+	// 根据 `struct` 更新属性，只会更新非零值的字段
+	if result := db.Model(&profile).Where("id = ?", profile.ID).Updates(profile); result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
 // GetProfile 获取Profile
 func GetProfile(id string) (model.Profile, error) {
 	db, err := getDB()
