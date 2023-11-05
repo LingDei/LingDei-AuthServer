@@ -6,7 +6,7 @@
 
 config/config.yaml
 
-````yaml
+```yaml
 # 数据库
 mysql:
   DSN: 数据库连接字符串
@@ -15,7 +15,7 @@ QINIU:
   access_key: 七牛云access_key
   secret_key: 七牛云secret_key
   bucket: 七牛云存储空间名称
-
+```
 
 ## 运行
 
