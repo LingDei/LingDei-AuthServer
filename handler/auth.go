@@ -61,7 +61,7 @@ func GetToken(c *fiber.Ctx) error {
 		"id":       user.ID,
 		"username": user.UserName,
 		"role":     user.Role,
-		"exp":      time.Now().Add(time.Hour * 72).Unix(),
+		"exp":      time.Now().Add(time.Hour * 24 * 7).Unix(),
 	}
 
 	// 创建token

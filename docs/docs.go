@@ -103,6 +103,43 @@ const docTemplate = `{
         },
         "/profile/get": {
             "get": {
+                "description": "获取用户Profile",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户个人资料"
+                ],
+                "summary": "获取用户Profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户UUID",
+                        "name": "user_uuid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ProfileResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.OperationResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/my": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
