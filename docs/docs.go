@@ -119,6 +119,14 @@ const docTemplate = `{
                     "用户个人资料"
                 ],
                 "summary": "获取用户Profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户UUID",
+                        "name": "user_uuid",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

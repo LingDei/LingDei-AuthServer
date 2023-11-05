@@ -15,16 +15,23 @@ import (
 //	@Tags			用户个人资料
 //	@Accept			json
 //	@Produce		json
-//	@Success		200	{object}	model.ProfileResp
-//	@Failure		400	{object}	model.OperationResp
+//	@Param			user_uuid	query		string	false	"用户UUID"
+//	@Success		200			{object}	model.ProfileResp
+//	@Failure		400			{object}	model.OperationResp
 //	@Security		ApiKeyAuth
 //	@Router			/profile/get [get]
 func GetProfileHandler(c *fiber.Ctx) error {
-	id := method.GetUserFromToken(c).ID
+	id := c.Query("user_uuid", method.GetUserFromToken(c).ID)
 	profile, err := method.GetProfile(id)
 	if err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
 	}
+
+	// 如果用户不是查询用户本人，则不返回敏感信息
+	if id != method.GetUserFromToken(c).ID {
+		profile.Email = ""
+	}
+
 	return c.JSON(model.ProfileResp{Code: 200, Profile: profile})
 }
 
