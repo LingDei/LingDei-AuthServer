@@ -31,6 +31,10 @@ func regiserService(app *fiber.App) {
 	token := app.Group("token")
 	token.Post("/get", handler.GetToken)
 
+	//Profile
+	profile := app.Group("profile")
+	profile.Get("/get", handler.GetProfileHandler)
+
 	// 使用 JWT Middleware
 	//以下为权限控制接口
 	app.Use(jwtConfig)
@@ -44,8 +48,7 @@ func regiserService(app *fiber.App) {
 	user.Post("/logout", handler.LogoutHandler)
 
 	//Profile
-	profile := app.Group("profile")
-	profile.Get("/get", handler.GetProfileHandler)
+	profile.Get("/my", handler.GetMyProfileHandler)
 	profile.Post("/update", handler.UpdateProfileHandler)
 	profile.Delete("/delete", handler.DeleteProfileHandler)
 	profile.Post("/avatar", handler.UploadAvatorHandler)

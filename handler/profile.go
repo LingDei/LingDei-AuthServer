@@ -11,6 +11,29 @@ import (
 // GetProfileHandler godoc
 //
 //	@Summary		获取用户Profile
+//	@Description	获取用户Profile
+//	@Tags			用户个人资料
+//	@Accept			json
+//	@Produce		json
+//	@Param			user_uuid	query		string	false	"用户UUID"
+//	@Success		200			{object}	model.ProfileResp
+//	@Failure		400			{object}	model.OperationResp
+//	@Router			/profile/get [get]
+func GetProfileHandler(c *fiber.Ctx) error {
+	id := c.Query("user_uuid")
+	profile, err := method.GetProfile(id)
+	if err != nil {
+		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
+	}
+
+	profile.Email = ""
+
+	return c.JSON(model.ProfileResp{Code: 200, Profile: profile})
+}
+
+// GetMyProfileHandler godoc
+//
+//	@Summary		获取用户Profile
 //	@Description	获取用户Profile，用户id通过token取得，不需要单独传参
 //	@Tags			用户个人资料
 //	@Accept			json
@@ -19,9 +42,9 @@ import (
 //	@Success		200			{object}	model.ProfileResp
 //	@Failure		400			{object}	model.OperationResp
 //	@Security		ApiKeyAuth
-//	@Router			/profile/get [get]
-func GetProfileHandler(c *fiber.Ctx) error {
-	id := c.Query("user_uuid", method.GetUserFromToken(c).ID)
+//	@Router			/profile/my [get]
+func GetMyProfileHandler(c *fiber.Ctx) error {
+	id := method.GetUserFromToken(c).ID
 	profile, err := method.GetProfile(id)
 	if err != nil {
 		return c.JSON(model.OperationResp{Code: 400, Msg: err.Error()})
